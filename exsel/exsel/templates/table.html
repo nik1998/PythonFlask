@@ -1,0 +1,23 @@
+{% extends "layout.html" %}
+{% block body %}
+{% if data !=None %}
+<p>First 100 rows of the table</p>
+ <table border = 1>
+         <thead>
+         {% for row in column %}
+            <td>{{row}}</td>
+         {% endfor %}
+         </thead>
+        {% for row in data %}
+            <tr>
+                {% for val in row %}
+                 <td>{{row[val]}}</td>
+                {% endfor %}
+            </tr>
+        {% endfor %}
+      </table>
+{%endif%}
+<a href = "/tableEditor">Create another table</a>
+<br>
+<a href = "/reltables">Create relationships between tables</a>
+{% endblock %}

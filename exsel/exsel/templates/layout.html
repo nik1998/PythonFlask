@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<meta http-equiv="Content-Language" content="en" />
+<head>
+    <meta charset="UTF-8">
+    <title>WebExcel</title>
+    <link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+</head>
+<script type="text/javascript">
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+        alert("{{message}}");
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+</script>
+<body>
+<div id="container">
+  <div id="header"> WebExcel</div>
+  <div id="menu"> <a href="/">Load file</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="/Author">About</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="/tableEditor">Create table</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href=/reltables>Relationship master</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="static/script.txt" download>Downland script</a> </div>
+    {% block body %}{% endblock %}
+      <div id="end" > &copy;2018 WebExcel &nbsp;<span class="separator">|</span>&nbsp; Nikita Berezhnov </div>
+</div>
+</body>
+</html>

@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+{% block body %}
+<form action="{{ url_for('tableEditor') }}" method="get">
+     <p>Choose list in excel file</p>
+    <p>This list is {{thislist}}</p>
+    <select name="list">
+        {% for i in list %}
+            {%if i==thislist %}
+                <option selected value="{{i}}">{{i}}</option>
+            {%else%}
+                <option value="{{i}}">{{i}}</option>
+            {%endif%}
+        {% endfor %}
+        <p><input type="submit" value="Open"></p>
+    </select>
+</form>
+<form action="{{ url_for('table') }}" method="post" >
+    <p>Enter table name</p>
+    <p><input type="text" name="name" value="Mytable"></p>
+    <p>Select table attributes</p>
+    {% for i in range(0,html_table|length) %}
+            <dt><input name="atr" type="checkbox" value="{{i+1}}"> {{html_table[i]}}
+    {% endfor %}
+     <p>Select table primary key</p>
+    <select name="prkey">
+        <option selected value="auto">New auto-increment field</option>
+        {% for i in range(0,html_table|length) %}
+        <option value="{{i+1}}">{{html_table[i]}}</option>
+        {% endfor %}
+    </select>
+    <p><input type="submit" value="Create"></p>
+  </form>
+<a href = "/">Open another excel file</a>
+{% endblock %}
