@@ -3,8 +3,8 @@
     <p>Create a relation between tables </p>
     <form action="{{ url_for('reltables') }}" method="post" >
         <select name="table1">
-        {% for i in tables %}
-        <option selected value="{{i}}">{{i}}</option>
+        {% for t in tables %}
+        <option selected value="{{t[0]}}">{{t[0]}}</option>
         {% endfor %}
         </select>
         <select name="rel">
@@ -13,22 +13,18 @@
             <option selected value="Many to Many">Many to Many</option>
         </select>
         <select name="table2">
-        {% for i in tables %}
-        <option selected value="{{i}}">{{i}}</option>
+        {% for t in tables %}
+        <option selected value="{{t[0]}}">{{t[0]}}</option>
         {% endfor %}
         </select>
     <p><input type="submit" value="Create"></p>
     </form>
-    <p>Existing relationships between tables</p>
+    <p>Existing user tables</p>
     <ul>
-    {% for rr in rels %}
-        <li><a href = "/table?tab={{rr[0]}}">{{rr[0]}}</a>
-        &nbsp;{{rr[1] }}
-        <a href = "/table?tab={{rr[2]}}"> {{rr[2]}}</a>
-        &nbsp;New table: {{rr[3] }}
-        </li>
+    {% for t in tables %}
+        <li><a href = "{{ url_for('table', tab = t[0]) }}">{{t[0]}}</a></li>
     {% endfor %}
     </ul>
-    <p><a href = "/tableEditor">Create another table</a></p>
-    <p><a href="static/script.txt" download>Download script</a></p>
+    <p><a href = "{{ url_for('tableEditor') }}">Create another table</a></p>
+    <p><a href="{{ url_for('downland') }}" download>Download script</a></p>
 {% endblock %}

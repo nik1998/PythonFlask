@@ -16,11 +16,15 @@
 {% endwith %}
 </script>
 <body>
-<div id="container">
-  <div id="header"> WebExcel</div>
-  <div id="menu"> <a href="/">Load file</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="/Author">About</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="/tableEditor">Create table</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href=/reltables>Relationship master</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="static/script.txt" download>Downland script</a> </div>
-    {% block body %}{% endblock %}
-      <div id="end" > &copy;2018 WebExcel &nbsp;<span class="separator">|</span>&nbsp; Nikita Berezhnov </div>
+<div class="container">
+   <div class="content">
+      <div class="header"> WebExcel</div>
+      <div class="menu"> <a href="{{ url_for('hello') }}">Load file</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="{{ url_for('author') }}">About</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="{{ url_for('tableEditor') }}">Create table</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="{{ url_for('reltables') }}">Relationship master</a> &nbsp; &nbsp; &nbsp; &nbsp; <a href="{{ url_for('downland') }}" download>Downland script</a> </div>
+       <div class="info">
+        {% block body %}{% endblock %}
+       </div>
+   </div>
+   <div class="end" > &copy;2020 WebExcel &nbsp;<span class="separator">|</span>&nbsp; Nikita Berezhnov&nbsp;&nbsp;&nbsp; </div>
 </div>
 </body>
 </html>

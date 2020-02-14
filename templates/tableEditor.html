@@ -4,11 +4,11 @@
      <p>Choose list in excel file</p>
     <p>This list is {{thislist}}</p>
     <select name="list">
-        {% for i in list %}
-            {%if i==thislist %}
-                <option selected value="{{i}}">{{i}}</option>
+        {% for i in range(list|length) %}
+            {%if list[i]==thislist %}
+                <option selected value="{{i}}">{{list[i]}}</option>
             {%else%}
-                <option value="{{i}}">{{i}}</option>
+                <option value="{{i}}">{{list[i]}}</option>
             {%endif%}
         {% endfor %}
         <p><input type="submit" value="Open"></p>
@@ -16,10 +16,10 @@
 </form>
 <form action="{{ url_for('table') }}" method="post" >
     <p>Enter table name</p>
-    <p><input type="text" name="name" value="Mytable"></p>
+    <p><input type="text" name="name" value="{{thislist}}"></p>
     <p>Select table attributes</p>
     {% for i in range(0,html_table|length) %}
-            <dt><input name="atr" type="checkbox" value="{{i+1}}"> {{html_table[i]}}
+            <dt><input name="atr{{i+1}}" type="checkbox" id = "atr-{{i}}" value="{{i+1}}"> {{html_table[i]}}
     {% endfor %}
      <p>Select table primary key</p>
     <select name="prkey">
@@ -30,5 +30,5 @@
     </select>
     <p><input type="submit" value="Create"></p>
   </form>
-<a href = "/">Open another excel file</a>
+<a href = "{{ url_for('hello') }}">Open another excel file</a>
 {% endblock %}

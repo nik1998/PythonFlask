@@ -1,29 +1,33 @@
 body  {
 background: #F4F4F4;
-margin: 0;
 }
-#container { 
-width: 780px;
-height: 100%;
-margin: 0 auto;
+.container {
+vertical-align:bottom;
 background: #FFFFFF;
 }
-#header  {
+.content {
+width: 100%;
+height: 94vh;
+}
+.info{
+    margin-left: 30px;
+}
+.header  {
 padding: 45px 0 20px 40px;
 color: #121212;
 text-decoration: none;
 font-size: 30px; 
 font-family: "Myriad Pro", "Arial Narrow";
 }
-#menu {
+.menu {
 background-color: #3b7687; 
 padding: 6px 0 6px 40px;
 }
 
-#menu a {
+.menu a {
 color: #c5d6db;
 text-decoration: none; 
-font-size: 14px; 
+font-size: 20px;
 font-family: "Arial Narrow", "Myriad Pro";
 }
 h1 {
@@ -38,9 +42,11 @@ color: #3b7687;
 font-size: 15px; 
 margin: 20px 0 5px 0;
 }
-#end {
-padding: 6px 40px 6px 40px;
-background: #d6d6d6; 
+.end {
+width: 100%;
+padding-top: 6px;
+padding-bottom: 6px;
+background: #d6d6d6;
 font-family: "Lucida Sans Unicode";
 color: #444444;
 font-size: 11px;

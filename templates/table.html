@@ -2,22 +2,27 @@
 {% block body %}
 {% if data !=None %}
 <p>First 100 rows of the table</p>
- <table border = 1>
-         <thead>
-         {% for row in column %}
-            <td>{{row}}</td>
-         {% endfor %}
-         </thead>
-        {% for row in data %}
-            <tr>
-                {% for val in row %}
-                 <td>{{row[val]}}</td>
-                {% endfor %}
-            </tr>
-        {% endfor %}
-      </table>
+<table border=1>
+    <thead>
+    {% for row in column %}
+    <td>{{row}}</td>
+    {% endfor %}
+    <td> Update</td>
+    </thead>
+    {% for row in data %}
+    <form action="{{ url_for('editLines') }}" method=post>
+        <tr>
+            {% for val in row %}
+            <td><input type="text" maxlength="10000" value="{{row[val]}}" name="{{val}}"></td>
+            {% endfor %}
+            <td><input type=submit name='{{row[column[0]]}}' value=Update></td>
+            <input type=hidden name='prk' value='{{row[column[0]]}}'>
+        </tr>
+    </form>
+    {% endfor %}
+</table>
 {%endif%}
-<a href = "/tableEditor">Create another table</a>
+<a href="{{ url_for('tableEditor') }}">Create another table</a>
 <br>
-<a href = "/reltables">Create relationships between tables</a>
+<a href="{{ url_for('reltables') }}">Create relationships between tables</a>
 {% endblock %}
