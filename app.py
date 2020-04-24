@@ -37,7 +37,7 @@ def downland():
     tab = cursor.fetchall()
     t = [i[0] for i in tab]
     with open('static\dump.sql', 'w') as f:
-        for line in getTableDump(pathdb, ['Цена', 'Изделие', 'Производитель']):
+        for line in getTableDump(pathdb, t):
             f.write('%s\n' % line)
     return send_file('static\dump.sql')
 
@@ -96,9 +96,13 @@ def reltables():
             db.commit()
         except Exception as e:
             flash(str(e))
-    cursor.execute("select tab from userTables where user='" + session['id'] + "'")
-    tab = cursor.fetchall()
-    return render_template('reltables.html', tables=tab)
+    if 'id' in session:
+        cursor.execute("select tab from userTables where user='" + session['id'] + "'")
+        tab = cursor.fetchall()
+        return render_template('reltables.html', tables=tab)
+    else:
+        flash("Create table!")
+        return redirect(url_for('hello'))
 
 
 @app.route('/editLines', methods=['POST'])
@@ -141,19 +145,32 @@ def addLines():
         data = cursor.fetchall()
         pr = ''
         d = dict(request.form)
-        st = ' set'
+        st = ""
+        pst =""
+        cols = ""
         for txt in data:
-            if txt['pk'] == 1:
-                pr = txt['name']
-            else:
-                if request.form[txt['name']] != '':
-                    st += ' ' + txt['name'] + " = '" + request.form[txt['name']] + "',"
+            if txt[5] == 1:
+                pr = txt[1]
+                if txt[2] == 'text':
+                    pst += "' '"
                 else:
-                    st += ' ' + txt['name'] + ' = ' + '" "' + ','
-        st = st[0:-1]
-        ans = d[pr]
-        str = "update " + session['tab'] + st + " where " + pr + " = " + ans
-        cursor.execute(str)
+                    pst += "0"
+            else:
+                cols += txt[1] + ','
+                if txt[2] == 'text':
+                    st += "' ',"
+                else:
+                    st += "0,"
+        try:
+            str = 'INSERT INTO ' + tab + ' (' + cols[0:-1] + ') ' + 'VALUES (' + st[0:-1] + ')'
+            cursor.execute(str)
+        #except:
+            #try:
+                #str = 'INSERT INTO ' + tab + ' (' + cols + pr + ') ' + 'VALUES (' + st[0:-1] + pst+')'
+                #cursor.execute(str)
+        except Exception as e:
+            flash(str(e))
+
         db.commit()
     except Exception as e:
         flash(str(e))

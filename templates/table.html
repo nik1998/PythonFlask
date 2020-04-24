@@ -13,7 +13,7 @@
     <form action="{{ url_for('editLines') }}" method=post>
         <tr>
             {% for val in row %}
-            <td><input type="text" maxlength="10000" value="{{row[val]}}" name="{{val}}"></td>
+            <td><input type="text" maxlength="1000" value="{{row[val]}}" name="{{val}}"></td>
             {% endfor %}
             <td><input type=submit name='{{row[column[0]]}}' value=Update></td>
             <input type=hidden name='prk' value='{{row[column[0]]}}'>
@@ -21,6 +21,9 @@
     </form>
     {% endfor %}
 </table>
+<form action="{{ url_for('addLines') }}" method=post>
+    <input type=submit value="Add line">
+</form>
 {%endif%}
 <a href="{{ url_for('tableEditor') }}">Create another table</a>
 <br>
