@@ -120,15 +120,14 @@ def editLines():
         for txt in data:
             if txt['pk'] == 1:
                 pr = txt['name']
+            if request.form[txt['name']] != '':
+                st += ' ' + txt['name'] + " = '" + request.form[txt['name']] + "',"
             else:
-                if request.form[txt['name']] != '':
-                    st += ' ' + txt['name'] + " = '" + request.form[txt['name']] + "',"
-                else:
-                    st += ' ' + txt['name'] + ' = ' + '" "' + ','
+                st += ' ' + txt['name'] + ' = ' + '" "' + ','
         st = st[0:-1]
         ans = d[pr]
-        str = "update " + session['tab'] + st + " where " + pr + " = " + ans
-        cursor.execute(str)
+        st = "update " + session['tab'] + st + " where " + pr + " = " + ans
+        cursor.execute(st)
         db.commit()
     except Exception as e:
         flash(str(e))
@@ -162,8 +161,8 @@ def addLines():
                 else:
                     st += "0,"
         try:
-            str = 'INSERT INTO ' + tab + ' (' + cols[0:-1] + ') ' + 'VALUES (' + st[0:-1] + ')'
-            cursor.execute(str)
+            st = 'INSERT INTO ' + tab + ' (' + cols[0:-1] + ') ' + 'VALUES (' + st[0:-1] + ')'
+            cursor.execute(st)
         #except:
             #try:
                 #str = 'INSERT INTO ' + tab + ' (' + cols + pr + ') ' + 'VALUES (' + st[0:-1] + pst+')'
@@ -200,6 +199,8 @@ def table():
                 if stt in d:
                     mas.append(d[stt])
             prkey = d['prkey']
+            if mas ==[]:
+                raise Exception("Not columns")
             if (prkey in mas) and prkey != "auto":
                 mas.remove(prkey)
             st = "create table " + tname + " ("
