@@ -307,4 +307,4 @@ if __name__ == "__main__":
     myinit(sqlite3.connect(pathdb))
     port = getPort()
     app.run(port=getPort())
-    # host = "10.16.1.203", port =getPort()
+    # host = "134.122.125.86", port =getPort()
