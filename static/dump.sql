@@ -1,2 +1,17 @@
 BEGIN TRANSACTION;
+CREATE TABLE Врач (Номер integer primary key, 'ФИО' text, 'Должность' text);
+INSERT INTO "Врач" VALUES(1,'Арсеньева И. А.','медсестра');
+INSERT INTO "Врач" VALUES(2,'Козлов В. В.','врач');
+INSERT INTO "Врач" VALUES(3,'Павлов И. Н.','главврач');
+INSERT INTO "Врач" VALUES(4,'Пивоваров А.Ю.','инфекционист');
+CREATE TABLE Пациент (Номер integer primary key, 'ФИО' text, 'Дата_рождения' text, 'Пол' text);
+INSERT INTO "Пациент" VALUES(1,'Кукушкина У. У.','1970-06-13 00:00:00','Ж');
+INSERT INTO "Пациент" VALUES(2,'Иванов И. И.','1989-03-27 00:00:00','М');
+INSERT INTO "Пациент" VALUES(3,'Петров П. П.','1998-08-19 00:00:00','М');
+INSERT INTO "Пациент" VALUES(4,'Сидоров С. С.','2000-10-09 00:00:00','М');
+INSERT INTO "Пациент" VALUES(5,'Синицина С. Ю.','1998-12-23 00:00:00','Ж');
+CREATE TABLE Пациент_Врач (Номер1 integer,Номер2 integer,CONSTRAINT PKKEY PRIMARY KEY(Номер1,Номер2),FOREIGN KEY(Номер1) REFERENCES Пациент(Номер),FOREIGN KEY(Номер2) REFERENCES Врач(Номер));
+INSERT INTO "Пациент_Врач" VALUES(1,2);
+INSERT INTO "Пациент_Врач" VALUES(2,1);
+INSERT INTO "Пациент_Врач" VALUES(4,3);
 COMMIT;

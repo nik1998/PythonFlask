@@ -125,8 +125,8 @@ def editLines():
             else:
                 st += ' ' + txt['name'] + ' = ' + '" "' + ','
         st = st[0:-1]
-        ans = d[pr]
-        st = "update " + session['tab'] + st + " where " + pr + " = " + ans
+        ans = d['prk']
+        st = "update " + session['tab'] + st + " where " + pr + " = '" + ans + "'"
         cursor.execute(st)
         db.commit()
     except Exception as e:
@@ -142,34 +142,19 @@ def addLines():
         cursor = db.cursor()
         cursor.execute("pragma table_info ('" + tab + "') ")
         data = cursor.fetchall()
-        pr = ''
-        d = dict(request.form)
         st = ""
-        pst =""
         cols = ""
         for txt in data:
-            if txt[5] == 1:
-                pr = txt[1]
-                if txt[2] == 'text':
-                    pst += "' '"
-                else:
-                    pst += "0"
+            cols += txt[1] + ','
+            if txt[2] == 'text':
+                st += "' ',"
             else:
-                cols += txt[1] + ','
-                if txt[2] == 'text':
-                    st += "' ',"
-                else:
-                    st += "0,"
+                st += "0,"
         try:
             st = 'INSERT INTO ' + tab + ' (' + cols[0:-1] + ') ' + 'VALUES (' + st[0:-1] + ')'
             cursor.execute(st)
-        #except:
-            #try:
-                #str = 'INSERT INTO ' + tab + ' (' + cols + pr + ') ' + 'VALUES (' + st[0:-1] + pst+')'
-                #cursor.execute(str)
         except Exception as e:
             flash(str(e))
-
         db.commit()
     except Exception as e:
         flash(str(e))
